@@ -8,6 +8,12 @@ describe("Users", () => {
     await connection.runMigrations();
   });
 
+  afterAll(async () => {
+    const connection = await createConnection();
+    await connection.dropDatabase();
+    await connection.close();
+  })
+
   it("Showd be able to create a new user", async () => {
     const response = await request(app).post("/users").send({
       email: "user@example.com",
